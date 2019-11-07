@@ -52,3 +52,18 @@ luhnDouble :: Int -> Int
 luhnDouble x 
   | (x * 2) > 9 = (x * 2) - 9 
   | otherwise = x * 2
+
+-- 4:  Construa um programa em Haskell capaz de converter um número octal (na forma forma de string) em um número decimal. Trate uma entrada inválida com 0 octal. Não use funções prontas de conversão, construa a sua própria versão usando suas próprias funções ou as funções disponíveis no prelude.hs.
+
+octalToDecimal :: [Char] -> [Int]
+octalToDecimal [] = []
+octalToDecimal xs = convertToList xs
+
+convertToList :: [Char] -> [Int]
+convertToList [] = []
+convertToList (x:xs) = charToInt x : convertToList xs
+
+charToInt :: Char -> Int
+charToInt x | x >= '0' && x <= '8' 
+              = fromEnum x - fromEnum '0'
+            | otherwise = -1
