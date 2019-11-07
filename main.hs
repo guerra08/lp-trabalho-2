@@ -44,9 +44,16 @@ myMap f1 f2 (x1:x2:xs) = f1 x1 : f2 x2 : myMap f1 f2 xs
 -- Como entrada, é passada uma lista contendo cada dígito do número do cartão.
 --Ex: [5,2,3,4,5,6,7,8, ...]
 
+--Também foi criada uma versão que recebe uma string com os dígitos do cartão.
+--Ex: "1784"
+
 luhn :: [Int] -> Bool
 luhn [] = False
 luhn xs = ((sum (myMap luhnDouble (+0) xs)) `mod` 10) == 0
+
+luhnStr :: [Char] -> Bool
+luhnStr [] = False
+luhnStr xs = ((sum (myMap luhnDouble (+0) (convertToListOfInt xs))) `mod` 10) == 0
 
 luhnDouble :: Int -> Int
 luhnDouble x 
@@ -57,13 +64,26 @@ luhnDouble x
 
 octalToDecimal :: [Char] -> [Int]
 octalToDecimal [] = []
-octalToDecimal xs = convertToList xs
+octalToDecimal xs = convertToListOfIntOct xs
 
-convertToList :: [Char] -> [Int]
-convertToList [] = []
-convertToList (x:xs) = charToInt x : convertToList xs
+--Recebe uma string ([Char]) e converte em uma lista de Int (uso geral)
+convertToListOfInt :: [Char] -> [Int]
+convertToListOfInt [] = []
+convertToListOfInt (x:xs) = charToInt x : convertToListOfInt xs
 
+--Recebe uma string ([Char]) e converte em uma lista de Int (para questão 4)
+convertToListOfIntOct :: [Char] -> [Int]
+convertToListOfIntOct [] = []
+convertToListOfIntOct (x:xs) = charToIntOct x : convertToListOfIntOct xs
+
+--Recebe um Char e converte em Int (uso geral)
 charToInt :: Char -> Int
-charToInt x | x >= '0' && x <= '8' 
+charToInt x | x >= '0' && x <= '9' 
+              = fromEnum x - fromEnum '0'
+            | otherwise = 0
+
+--Recebe um Char e converte em Int (para questão 4)
+charToIntOct :: Char -> Int
+charToIntOct x | x >= '0' && x <= '8' 
               = fromEnum x - fromEnum '0'
             | otherwise = -1
