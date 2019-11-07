@@ -3,19 +3,28 @@
 --mysort [[3,1,2],[2,1],[5,7,1,2],[11]]
 --Output: [[11],[2,1],[3,1,2],[5,7,1,2]]
 
---Utilizando bubble sort e quick sort
---TODO: Refatorar bubbleSort
+--Utilizando bubble sort
 
-sortList :: [[a]] -> [[a]]
-sortList [[]] = [[]]
-sortList xss = bubbleSort xss
+sortListBubble :: [[a]] -> [[a]]
+sortListBubble [[]] = [[]]
+sortListBubble xss = bubbleSort xss
 
 bubbleSort :: [[a]] -> [[a]]
 bubbleSort [] = []
 bubbleSort [x] = [x]
-bubbleSort (x:y:arrLeft) = bubbleSort(init bubbled) ++ [last bubbled]
-    where (smaller,bigger) = if(length x <= length y) then (x, y) else (y, x)
-          bubbled = [smaller] ++ bubbleSort (bigger:arrLeft)
+bubbleSort xss = bubbleAux xss (length xss)
+
+bubbleAux :: [[a]] -> Int -> [[a]]
+bubbleAux [] _ = []
+bubbleAux [x] _ = [x]
+bubbleAux xss 0 = xss
+bubbleAux xss n = bubbleAux (swap xss) (n-1)
+
+swap :: [[a]] -> [[a]]
+swap [x] = [x]
+swap (xs:ys:xss)
+  | (length xs) > (length ys) = ys : swap (xs:xss)
+  | otherwise = xs : swap (ys:xss)
 
 -- 2: Defina a função myMap :: (a -> b) -> (a -> b) -> [a] -> [b] que aplica de forma alternada duas funções passadas como argumentos aos elementos de uma lista.
 --myMap (+3) (*10) [0,1,2,3,4,11]
