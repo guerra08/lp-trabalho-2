@@ -27,3 +27,11 @@ para códigos de cartão de qualquer tamanho.
 em um número decimal. Trate uma entrada inválida com 0 octal. 
 Não use funções prontas de conversão, construa a sua própria versão 
 usando suas próprias funções ou as funções disponíveis no prelude.hs.
+
+Como consulta, utilizou-se os seguintes materiais:
+
+Ordenação - Linguagem Haskell. Disponível em:
+http://www.facom.ufu.br/~madriana/PF/Haskell11.pdf
+
+Wiki Haskell. Disponível em:
+https://wiki.haskell.org/Haskell
