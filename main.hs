@@ -14,8 +14,8 @@ bubbleSort :: [[a]] -> [[a]]
 bubbleSort [] = []
 bubbleSort [x] = [x]
 bubbleSort (x:y:arrLeft) = bubbleSort(init bubbled) ++ [last bubbled]
-  where (smaller,bigger) = if(length x <= length y) then (x, y) else (y, x)
-    bubbled = [smaller] ++ bubbleSort (bigger:arrLeft)
+    where (smaller,bigger) = if(length x <= length y) then (x, y) else (y, x)
+          bubbled = [smaller] ++ bubbleSort (bigger:arrLeft)
 
 -- 2: Defina a função myMap :: (a -> b) -> (a -> b) -> [a] -> [b] que aplica de forma alternada duas funções passadas como argumentos aos elementos de uma lista.
 --myMap (+3) (*10) [0,1,2,3,4,11]
