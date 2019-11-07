@@ -1,8 +1,10 @@
 # lp-trabalho-2
-Trabalho 2 da cadeira de Linguagens de Programação, 2019/2.
+<b>Trabalho 2 da cadeira de Linguagens de Programação, 2019/2.</b>
 
-A atividade consiste na codificação de funções na linguagem Haskell, 
-utilizando o paradigma funcional, além dos conteúdos vistos em aula.
+<b>Autores: Bruno Gava Guerra e Eduardo Nohr Lessa</b>
+
+A atividade consiste na resolução de problemas utilizando a linguagem Haskell e 
+o paradigma funcional. Para isso, fez-se necessário aplicar os conteúdos vistos em aula, disponibilizados no ambiente Moodle da disciplina. Também, foram consultados materiais encontrados na internet.
 
 Enunciados das questões:
 
@@ -27,3 +29,11 @@ para códigos de cartão de qualquer tamanho.
 em um número decimal. Trate uma entrada inválida com 0 octal. 
 Não use funções prontas de conversão, construa a sua própria versão 
 usando suas próprias funções ou as funções disponíveis no prelude.hs.
+
+Como consulta, utilizou-se os seguintes materiais:
+
+Ordenação - Linguagem Haskell. Disponível em:
+http://www.facom.ufu.br/~madriana/PF/Haskell11.pdf
+
+Wiki Haskell. Disponível em:
+https://wiki.haskell.org/Haskell
