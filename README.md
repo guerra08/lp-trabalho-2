@@ -37,3 +37,10 @@ http://www.facom.ufu.br/~madriana/PF/Haskell11.pdf
 
 Wiki Haskell. Disponível em:
 https://wiki.haskell.org/Haskell
+
+Foram feitas algumas funcionalidades extras. 
+
+1. É possível utilizar o algoritmo de Luhn passando uma String como argumento. A função se chama luhnStr
+2. Foram feitos diferentes métodos para converter uma String em uma lista de inteiros, tanto para a conversão de octal para decimal como para o algoritmo de Luhn com String.
+
+Em revisões futuras, pretende-se implementar outros algoritmos de ordenação além do Bubble Sort.
