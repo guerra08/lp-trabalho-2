@@ -52,11 +52,13 @@ myMap f1 f2 (x1:xs) = f1 x1 : []
 
 luhn :: [Int] -> Bool
 luhn [] = False
-luhn xs = ((sum (myMap luhnDouble (+0) xs)) `mod` 10) == 0
+luhn xs = (z /= 0) && (z `mod` 10 == 0)
+  where z = sum (myMap luhnDouble (+0) xs)
 
 luhnStr :: [Char] -> Bool
 luhnStr [] = False
-luhnStr xs = ((sum (myMap luhnDouble (+0) (convertToListOfInt xs (length xs)))) `mod` 10) == 0
+luhnStr xs = (z /= 0) && (z `mod` 10 == 0)
+  where z = (sum (myMap luhnDouble (+0) (convertToListOfInt xs (length xs))))
 
 luhnDouble :: Int -> Int
 luhnDouble x 
