@@ -33,11 +33,14 @@ swap (xs:ys:xss)
 
 -- 2: Defina a função myMap :: (a -> b) -> (a -> b) -> [a] -> [b] que aplica de forma alternada duas funções passadas como argumentos aos elementos de uma lista.
 
+--TODO: Corrigir e testar
+
 --myMap (+3) (*10) [0,1,2,3,4,11]
 
 myMap :: (a -> b) -> (a -> b) -> [a] -> [b]
 myMap _ _ [] = []
 myMap f1 f2 (x1:x2:xs) = f1 x1 : f2 x2 : myMap f1 f2 xs
+myMap f1 f2 (x1:xs) = f1 x1 : []
 
 -- 3: A partir da função myMap, defina um função luhn :: [Int] -> Bool que implemente o algoritmo de Luhn para a validações de números de cartão de crédito para códigos de cartão de qualquer tamanho.
 
@@ -53,7 +56,7 @@ luhn xs = ((sum (myMap luhnDouble (+0) xs)) `mod` 10) == 0
 
 luhnStr :: [Char] -> Bool
 luhnStr [] = False
-luhnStr xs = ((sum (myMap luhnDouble (+0) (convertToListOfInt xs))) `mod` 10) == 0
+luhnStr xs = ((sum (myMap luhnDouble (+0) (convertToListOfInt xs (length xs)))) `mod` 10) == 0
 
 luhnDouble :: Int -> Int
 luhnDouble x 
@@ -62,19 +65,28 @@ luhnDouble x
 
 -- 4:  Construa um programa em Haskell capaz de converter um número octal (na forma forma de string) em um número decimal. Trate uma entrada inválida com 0 octal. Não use funções prontas de conversão, construa a sua própria versão usando suas próprias funções ou as funções disponíveis no prelude.hs.
 
-octalToDecimal :: [Char] -> [Int]
-octalToDecimal [] = []
-octalToDecimal xs = convertToListOfIntOct xs
+octalToDecimal :: [Char] -> Int
+octalToDecimal [] = 0
+octalToDecimal xs = convertAndSum (convertToListOfIntOct xs (length xs)) (length xs - 1)
+
+convertAndSum :: [Int] -> Int -> Int
+convertAndSum [] _ = 0
+convertAndSum (x : xs) n = (convertOctToDec x n) + (convertAndSum xs (n-1))
 
 --Recebe uma string ([Char]) e converte em uma lista de Int (uso geral)
-convertToListOfInt :: [Char] -> [Int]
-convertToListOfInt [] = []
-convertToListOfInt (x:xs) = charToInt x : convertToListOfInt xs
+convertToListOfInt :: [Char] -> Int -> [Int]
+convertToListOfInt [] _ = []
+convertToListOfInt (x:xs) pos 
+  | (charToInt x) /= -1 = charToInt x : convertToListOfInt xs (pos-1)
+  | otherwise = [0]
+
+convertOctToDec :: Int -> Int -> Int
+convertOctToDec num pos = num * (8^pos)
 
 --Recebe uma string ([Char]) e converte em uma lista de Int (para questão 4)
-convertToListOfIntOct :: [Char] -> [Int]
-convertToListOfIntOct [] = []
-convertToListOfIntOct (x:xs) = charToIntOct x : convertToListOfIntOct xs
+convertToListOfIntOct :: [Char] -> Int -> [Int]
+convertToListOfIntOct [] _ = []
+convertToListOfIntOct (x:xs) pos = charToIntOct x : convertToListOfIntOct xs (pos-1)
 
 --Recebe um Char e converte em Int (uso geral)
 charToInt :: Char -> Int
@@ -84,6 +96,6 @@ charToInt x | x >= '0' && x <= '9'
 
 --Recebe um Char e converte em Int (para questão 4)
 charToIntOct :: Char -> Int
-charToIntOct x | x >= '0' && x <= '8' 
+charToIntOct x | x >= '0' && x <= '7' 
               = fromEnum x - fromEnum '0'
             | otherwise = -1
