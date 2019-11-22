@@ -71,10 +71,12 @@ octalToDecimal xs
   | checkIfValidOct (convertToListOfIntOct xs (length xs)) = convertAndSum (convertToListOfIntOct xs (length xs)) (length xs - 1)
   | otherwise = 0
 
+-- Converte e soma
 convertAndSum :: [Int] -> Int -> Int
 convertAndSum [] _ = 0
 convertAndSum (x : xs) n = (convertOctToDec x n) + (convertAndSum xs (n-1))
 
+--Verifica se é um valor em base octal válido
 checkIfValidOct :: [Int] -> Bool
 checkIfValidOct [] = True
 checkIfValidOct (x : xs) 
