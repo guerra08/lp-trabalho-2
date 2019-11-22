@@ -30,6 +30,29 @@ em um número decimal. Trate uma entrada inválida com 0 octal.
 Não use funções prontas de conversão, construa a sua própria versão 
 usando suas próprias funções ou as funções disponíveis no prelude.hs.
 
+----------------------------------------------------------------------------------------------------------------------------
+
+<b>Funções desenvolvidas:</b>
+
+mysort -> Ordena uma lista de listas de acordo com o tamanho das listas. 
+
+Ex: mysort [[1,2],[1],[1,2,3]] = [[1],[1,2],[1,2,3]]
+Utiliza um simples bubble sort para ordenação.
+
+myMap -> Aplica duas funções a uma lista de maneira alternada.
+
+Ex: myMap (+1) (+3) [1,2,3,4] = [2,5,4,7]
+
+luhn -> Recebe uma lista de tamanho n com os digitos de um cartão de crédito e retorna se é válido utilizando o algoritmo de Luhn.
+
+Ex: luhn [1,2,3,4] = False
+
+octalToDecimal -> Recebe uma string representando um numero em base octal e retorna o mesmo em base decimal. Se for um número inválido, retorna 0.
+
+Ex: octalToDecimal 12 = 10
+
+----------------------------------------------------------------------------------------------------------------------------
+
 Como consulta, utilizou-se os seguintes materiais:
 
 Ordenação - Linguagem Haskell. Disponível em:
