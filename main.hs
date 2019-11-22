@@ -10,9 +10,9 @@
 
 -- Foi desenvolvido utilizando o bubbleSort como método de ordenação.
 
-mySort :: [[a]] -> [[a]]
-mySort [[]] = [[]]
-mySort xss = bubbleSort xss
+mysort :: [[a]] -> [[a]]
+mysort [[]] = [[]]
+mysort xss = bubbleSort xss
 
 bubbleSort :: [[a]] -> [[a]]
 bubbleSort [] = []
@@ -32,8 +32,6 @@ swap (xs:ys:xss)
   | otherwise = xs : swap (ys:xss)
 
 -- 2: Defina a função myMap :: (a -> b) -> (a -> b) -> [a] -> [b] que aplica de forma alternada duas funções passadas como argumentos aos elementos de uma lista.
-
---TODO: Corrigir e testar
 
 --myMap (+3) (*10) [0,1,2,3,4,11]
 
@@ -69,12 +67,20 @@ luhnDouble x
 
 octalToDecimal :: [Char] -> Int
 octalToDecimal [] = 0
-octalToDecimal xs = convertAndSum (convertToListOfIntOct xs (length xs)) (length xs - 1)
+octalToDecimal xs 
+  | checkIfValidOct (convertToListOfIntOct xs (length xs)) = convertAndSum (convertToListOfIntOct xs (length xs)) (length xs - 1)
+  | otherwise = 0
 
 convertAndSum :: [Int] -> Int -> Int
 convertAndSum [] _ = 0
 convertAndSum (x : xs) n = (convertOctToDec x n) + (convertAndSum xs (n-1))
 
+checkIfValidOct :: [Int] -> Bool
+checkIfValidOct [] = True
+checkIfValidOct (x : xs) 
+  | x == (-1) = False
+  | otherwise = checkIfValidOct xs
+  
 --Recebe uma string ([Char]) e converte em uma lista de Int (uso geral)
 convertToListOfInt :: [Char] -> Int -> [Int]
 convertToListOfInt [] _ = []
