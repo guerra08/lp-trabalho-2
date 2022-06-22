@@ -10,6 +10,8 @@
 
 -- Foi desenvolvido utilizando o bubbleSort como método de ordenação.
 
+import Data.Char
+
 mysort :: [[a]] -> [[a]]
 mysort [[]] = [[]]
 mysort xss = bubbleSort xss
@@ -26,9 +28,10 @@ bubbleAux xss 0 = xss
 bubbleAux xss n = bubbleAux (swap xss) (n-1)
 
 swap :: [[a]] -> [[a]]
+swap [] = []
 swap [x] = [x]
 swap (xs:ys:xss)
-  | (length xs) > (length ys) = ys : swap (xs:xss)
+  | length xs > length ys = ys : swap (xs:xss)
   | otherwise = xs : swap (ys:xss)
 
 -- 2: Defina a função myMap :: (a -> b) -> (a -> b) -> [a] -> [b] que aplica de forma alternada duas funções passadas como argumentos aos elementos de uma lista.
@@ -38,7 +41,7 @@ swap (xs:ys:xss)
 myMap :: (a -> b) -> (a -> b) -> [a] -> [b]
 myMap _ _ [] = []
 myMap f1 f2 (x1:x2:xs) = f1 x1 : f2 x2 : myMap f1 f2 xs
-myMap f1 f2 (x1:xs) = f1 x1 : []
+myMap f1 f2 (x1:xs) = []
 
 -- 3: A partir da função myMap, defina um função luhn :: [Int] -> Bool que implemente o algoritmo de Luhn para a validações de números de cartão de crédito para códigos de cartão de qualquer tamanho.
 
@@ -56,7 +59,7 @@ luhn xs = (z /= 0) && (z `mod` 10 == 0)
 luhnStr :: [Char] -> Bool
 luhnStr [] = False
 luhnStr xs = (z /= 0) && (z `mod` 10 == 0)
-  where z = (sum (myMap luhnDouble (+0) (convertToListOfInt xs (length xs))))
+  where z = sum (myMap luhnDouble (+0) (convertToListOfInt xs (length xs)))
 
 luhnDouble :: Int -> Int
 luhnDouble x 
@@ -74,7 +77,7 @@ octalToDecimal xs
 -- Converte e soma
 convertAndSum :: [Int] -> Int -> Int
 convertAndSum [] _ = 0
-convertAndSum (x : xs) n = (convertOctToDec x n) + (convertAndSum xs (n-1))
+convertAndSum (x : xs) n = convertOctToDec x n + convertAndSum xs (n-1)
 
 --Verifica se é um valor em base octal válido
 checkIfValidOct :: [Int] -> Bool
@@ -87,7 +90,7 @@ checkIfValidOct (x : xs)
 convertToListOfInt :: [Char] -> Int -> [Int]
 convertToListOfInt [] _ = []
 convertToListOfInt (x:xs) pos 
-  | (charToInt x) /= -1 = charToInt x : convertToListOfInt xs (pos-1)
+  | charToInt x /= -1 = charToInt x : convertToListOfInt xs (pos-1)
   | otherwise = [0]
 
 convertOctToDec :: Int -> Int -> Int
@@ -100,12 +103,12 @@ convertToListOfIntOct (x:xs) pos = charToIntOct x : convertToListOfIntOct xs (po
 
 --Recebe um Char e converte em Int (uso geral)
 charToInt :: Char -> Int
-charToInt x | x >= '0' && x <= '9' 
+charToInt x | isDigit x
               = fromEnum x - fromEnum '0'
             | otherwise = 0
 
 --Recebe um Char e converte em Int (para questão 4)
 charToIntOct :: Char -> Int
-charToIntOct x | x >= '0' && x <= '7' 
+charToIntOct x | isDigit x
               = fromEnum x - fromEnum '0'
             | otherwise = -1
